@@ -22,7 +22,7 @@ import java.util.HashMap;
 
 public class registerActivity extends AppCompatActivity {
 
-
+    //garbage comment
     private EditText userET, emailET, passET;
     private Button registreBtn;
     private FirebaseAuth auth;
