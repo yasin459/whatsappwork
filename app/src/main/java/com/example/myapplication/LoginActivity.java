@@ -14,13 +14,26 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText passET, emailET;
     private Button loginBtn, redirectToRegister;
-
+    private FirebaseUser firebaseUser;
 
     private FirebaseAuth auth;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseUser= auth.getCurrentUser();
+
+        if(firebaseUser!= null){
+            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +43,9 @@ public class LoginActivity extends AppCompatActivity {
         emailET =findViewById(R.id.userLoginET);
         loginBtn=findViewById(R.id.loginBtn);
         redirectToRegister= findViewById(R.id.redirectToRegister);
+
         auth =FirebaseAuth.getInstance();
+
 
         // redirecting to register
         redirectToRegister.setOnClickListener(new View.OnClickListener() {
@@ -38,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this,registerActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
