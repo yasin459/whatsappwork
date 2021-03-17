@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -64,19 +65,27 @@ public class registerActivity extends AppCompatActivity {
                     FirebaseUser firebaseUser = auth.getCurrentUser();
                     String userid = firebaseUser.getUid();
                     myRefrence = FirebaseDatabase.getInstance().getReference("MyUsers").child(userid);
+                    System.out.println(myRefrence.toString());
                     HashMap<String,String > hashMap = new HashMap<>();
                     hashMap.put("id",userid);
                     hashMap.put("username",username);
                     hashMap.put("imageURL","default");
-
+                    System.out.println("entring setvalue");
+                    //todo authentication has to be priavate
                     myRefrence.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
+
+                            System.out.println("after setvalue");
                             if (task.isSuccessful()){
                                 Intent intent = new Intent(registerActivity.this,MainActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+
                                 startActivity(intent);
                                 finish();
+                            }
+                            else {
+                                Toast.makeText(registerActivity.this,"setvlue has failed",Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
