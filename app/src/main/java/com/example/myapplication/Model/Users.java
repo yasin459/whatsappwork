@@ -1,12 +1,14 @@
 package com.example.myapplication.Model;
 
 public class Users {
-    private int id;
+    private String id;
     private String username;
     private String imageURL;
 
+    public Users(){
 
-    public Users(int id, String username, String imageURL) {
+    }
+    public Users(String id, String username, String imageURL) {
         this.id = id;
         this.username = username;
         this.imageURL = imageURL;
@@ -28,11 +30,11 @@ public class Users {
         this.imageURL = imageURL;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 }
